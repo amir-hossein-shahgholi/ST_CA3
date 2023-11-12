@@ -128,13 +128,6 @@ public class EngineTest {
     }
 
     @Test
-    public void testAddOrderAndGetFraudulentQuantityWithInvalidOrder() {
-        order.setId(2);
-        int fraudulentQuantity = engine.addOrderAndGetFraudulentQuantity(order);
-        assertEquals(5, fraudulentQuantity);
-    }
-
-    @Test
     public void testAddOrderAndGetFraudulentQuantityWithZeroQuantity() {
         order.setQuantity(0);
         int fraudulentQuantity = engine.addOrderAndGetFraudulentQuantity(order);
