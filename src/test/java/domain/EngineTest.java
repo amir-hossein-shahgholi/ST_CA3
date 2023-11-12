@@ -63,8 +63,14 @@ public class EngineTest {
         order2.setPrice(50);
         order2.setQuantity(15);
 
+        Order order3 = new Order();
+        order3.setId(4);
+        order3.setPrice(50);
+        order3.setQuantity(20);
+
         engine.addOrderAndGetFraudulentQuantity(order1);
         engine.addOrderAndGetFraudulentQuantity(order2);
+        engine.addOrderAndGetFraudulentQuantity(order3);
 
         int pattern = engine.getQuantityPatternByPrice(50);
         assertEquals(5, pattern);
@@ -72,7 +78,18 @@ public class EngineTest {
 
     @Test
     public void testGetQuantityPatternByPriceNoPatternFound() {
-        engine.addOrderAndGetFraudulentQuantity(order);
+        Order order1 = new Order();
+        order1.setId(2);
+        order1.setPrice(50);
+        order1.setQuantity(10);
+
+        Order order2 = new Order();
+        order2.setId(3);
+        order2.setPrice(50);
+        order2.setQuantity(15);
+
+        engine.addOrderAndGetFraudulentQuantity(order1);
+        engine.addOrderAndGetFraudulentQuantity(order2);
 
         int pattern = engine.getQuantityPatternByPrice(60);
         assertEquals(0, pattern);
@@ -90,14 +107,13 @@ public class EngineTest {
         order2.setPrice(50);
         order2.setQuantity(15);
 
-        engine.addOrderAndGetFraudulentQuantity(order1);
-        engine.addOrderAndGetFraudulentQuantity(order2);
-
         Order order3 = new Order();
         order3.setId(4);
         order3.setPrice(50);
         order3.setQuantity(18);
 
+        engine.addOrderAndGetFraudulentQuantity(order1);
+        engine.addOrderAndGetFraudulentQuantity(order2);
         engine.addOrderAndGetFraudulentQuantity(order3);
 
         int pattern = engine.getQuantityPatternByPrice(50);
@@ -174,7 +190,7 @@ public class EngineTest {
         Order order = new Order();
         order.setId(1);
 
-        assertFalse(order.equals("not an Order object"));
-        assertFalse(order.equals(null));
+        assertNotEquals("not an Order object", order);
+        assertNotEquals(null, order);
     }
 }
