@@ -186,4 +186,27 @@ public class EngineTest {
         assertNotEquals("not an Order object", order);
         assertNotEquals(null, order);
     }
+
+    @Test
+    public void testAddOrderAndGetFraudulentQuantityWithQuantityGreaterThanAverage() {
+        Engine engine = new Engine();
+
+        Order order1 = new Order();
+        order1.setId(1);
+        order1.setCustomer(1);
+        order1.setPrice(5000);
+        order1.setQuantity(5);
+
+        Order order2 = new Order();
+        order2.setId(2);
+        order2.setCustomer(1);
+        order2.setPrice(5000);
+        order2.setQuantity(8);
+
+        engine.addOrderAndGetFraudulentQuantity(order1);
+
+        int fraudulentQuantity = engine.addOrderAndGetFraudulentQuantity(order2);
+
+        assertEquals(3, fraudulentQuantity);
+    }
 }
