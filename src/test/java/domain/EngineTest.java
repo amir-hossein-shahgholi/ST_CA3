@@ -2,6 +2,8 @@ package domain;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -186,4 +188,26 @@ public class EngineTest {
         assertNotEquals("not an Order object", order);
         assertNotEquals(null, order);
     }
+    @ParameterizedTest
+    @CsvSource({
+            "8, 3",
+            "3, 0",
+            "5, 0",
+    })
+    public void testAddOrderAndGetFraudulentQuantityTwoOrdersWithDifferentQuantities(int quantity, int expected) {
+        Engine engine = new Engine();
+
+        Order order2 = new Order();
+        order2.setId(2);
+        order2.setCustomer(1);
+        order2.setPrice(500);
+        order2.setQuantity(quantity);
+
+        engine.addOrderAndGetFraudulentQuantity(order);
+
+        int fraudulentQuantity = engine.addOrderAndGetFraudulentQuantity(order2);
+
+        assertEquals(expected, fraudulentQuantity);
+    }
+
 }
